@@ -14,7 +14,7 @@ Simple CRUD project (Create, Read, Update, Delete) made with [PHP](https://php.n
 
 - Unzip or clone this repository on your web server's webroot: `cd /var/www/html && git clone https://github.com/sistematico/php-mvc-lite`
 - Run command `composer install` in the same directory where the file `composer.json` is located.
-- Go to https://site.com/songs/install
+- Go to https://site.com/quotes/install
 - Pray.
 
 ## Nginx
@@ -27,7 +27,7 @@ server {
     server_name localhost;
     error_log  /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
-    root /var/www/php-mvc-lite/public;
+    root /var/www/php-mvc-ajax/public;
 
     location / {
     	index index.php;
