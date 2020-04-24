@@ -1,39 +1,53 @@
 $(function() {
 
-    // just a super-simple JS demo
+    const listBtn = document.getElementById("list");
+    const addBtn = document.getElementById("add");
+    const editBtn = document.getElementById("edit");
+    const deleteBtn = document.getElementById("delete");
+    const results = document.getElementById("results");
+    let saida = '';
+    
+    let list = (action, div) => {
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                div.innerHTML = '';
+                let objetos = JSON.parse(xmlhttp.responseText);
+                for(let i in objetos) {
+                    saida += '<tr>';
+                    saida += '<th scope="row">' + objetos[i].id + '</th>';
+                    saida += '<td>' + objetos[i].quote + '</td>';
+                    saida += '<td>' + objetos[i].author + '</td>';
+                    saida += '<td>' + objetos[i].tags + '</td>';
+                    saida += '<td>' + objetos[i].date + '</td>';
+                    saida += '<td>' + objetos[i].id + '</td>';
+                    saida += '<td><a id="delete" href="' + url + 'delete/' + objetos[i].id + '">del</a></td>';
+                    saida += '<td><a id="edit" href="' + url + 'edit/' + objetos[i].id + '">edit</a></td>';
+                    saida += '</tr>';
+                }
+                div.innerHTML = saida;
+            }
+        }
+        xmlhttp.open("GET", action, true);
+        xmlhttp.send();
+    };
+    
+    listBtn.onclick = function(){
+        list(url + 'quotes/ajaxlist', results);
+    }; 
 
-    var demoHeaderBox;
+    addBtn.onclick = function(){
+        add(url + 'quotes/add', results);
+    }; 
 
-    // simple demo to show create something via javascript on the page
-    if ($('#javascript-header-demo-box').length !== 0) {
-    	demoHeaderBox = $('#javascript-header-demo-box');
-    	demoHeaderBox
-    		.hide()
-    		.text('Hello from JavaScript! This line has been added by public/js/application.js')
-    		.css('color', 'green')
-    		.fadeIn('slow');
-    }
+    editBtn.onclick = function(){
+        edit(url + 'quotes/edit', results);
+    }; 
 
-    // if #javascript-ajax-button exists
-    if ($('#javascript-ajax-button').length !== 0) {
-
-        $('#javascript-ajax-button').on('click', function(){
-
-            // send an ajax-request to this URL: current-server.com/quotes/ajaxGetStats
-            // "url" is defined in views/_templates/footer.php
-            $.ajax(url + "/quotes/ajaxGetStats")
-                .done(function(result) {
-                    // this will be executed if the ajax-call was successful
-                    // here we get the feedback from the ajax-call (result) and show it in #javascript-ajax-result-box
-                    $('#javascript-ajax-result-box').html(result);
-                })
-                .fail(function() {
-                    // this will be executed if the ajax-call had failed
-                })
-                .always(function() {
-                    // this will ALWAYS be executed, regardless if the ajax-call was success or not
-                });
-        });
-    }
+    deleteBtn.onclick = function(){
+        delete(url + 'quotes/ajaxlist', results);
+    }; 
+    
+    list(url + 'quotes/ajaxlist', results);
 
 });

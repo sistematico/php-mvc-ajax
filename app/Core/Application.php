@@ -1,31 +1,21 @@
 <?php
-/** For more info about namespaces plase @see http://php.net/manual/en/language.namespaces.importing.php */
+
 namespace App\Core;
 
 class Application
 {
-    /** @var null The controller */
     private $url_controller = null;
-
-    /** @var null The method (of the above controller), often also named "action" */
     private $url_action = null;
-
-    /** @var array URL parameters */
     private $url_params = array();
 
-    /**
-     * "Start" the application:
-     * Analyze the URL elements and calls the according controller/method or the fallback
-     */
     public function __construct()
     {
-        // create array with URL parts in $url
         $this->splitUrl();
 
         // check for controller: no controller given ? then load start-page
         if (!$this->url_controller) {
 
-            $page = new \App\Controller\PagesController();
+            $page = new \App\Controller\QuotesController();
             $page->index();
 
         } elseif (file_exists(APP . 'Controller/' . ucfirst($this->url_controller) . 'Controller.php')) {

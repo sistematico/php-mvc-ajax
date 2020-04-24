@@ -21,6 +21,18 @@ class Quote extends Model
         return $this->results;
     }
 
+    public function ajaxlist()
+    {
+        $sql = "SELECT id, quote, author, tags, date FROM quote";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        //return $query->fetchAll();
+        while ($row = $query->fetch()) {
+            $this->results[] = ['id' => $row->id,'quote' => $row->quote,'author' => $row->author,'tags' => $row->tags,'date' => $row->date];
+        }
+        return json_encode($this->results);
+    }
+
     public function add($quote, $author, $tags)
     {
         $sql = "INSERT INTO quote (quote, author, tags) VALUES (:quote, :author, :tags)";

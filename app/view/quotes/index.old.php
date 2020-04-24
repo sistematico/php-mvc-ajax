@@ -45,11 +45,25 @@
                 <th scope="col">Edit</th>
             </tr>
         </thead>
-        <tbody id="results"></tbody>
+        <tbody>
+            <?php foreach ($quotes as $quote) { ?>
+            <tr>
+                <th scope="row"><?php if (isset($quote['id'])) echo htmlspecialchars($quote['id'], ENT_QUOTES, 'UTF-8'); ?></th>
+                <td><?php if (isset($quote['quote'])) echo htmlspecialchars($quote['quote'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php if (isset($quote['author'])) echo htmlspecialchars($quote['author'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td>
+                    <?php if (isset($quote['tags'])) { ?>
+                        <a href="<?php echo htmlspecialchars($quote['tags'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank"><?php echo htmlspecialchars($quote['tags'], ENT_QUOTES, 'UTF-8'); ?></a>
+                    <?php } ?>
+                </td>
+                <td><?php if (isset($quote['date'])) echo htmlspecialchars($quote['date'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><a onClick="javascript: return confirm('Are you sure you want to delete?');" href="<?php echo URL . 'quotes/delete/' . htmlspecialchars($quote['id'], ENT_QUOTES, 'UTF-8'); ?>"><i class="fas fa-trash"></i></a></td>
+                <td><a href="<?php echo URL . 'quotes/edit/' . htmlspecialchars($quote['id'], ENT_QUOTES, 'UTF-8'); ?>"><i class="fas fa-edit"></i></a></td>
+            </tr>
+            <?php } ?>
+        </tbody>
     </table>
     </div>
     <p>Quotes: <?php echo $amount; ?></small></p>
     <?php } ?>
-
-    <button id="list" class="btn btn-primary mb-2">List</button>
 </main>

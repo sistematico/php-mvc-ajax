@@ -107,4 +107,10 @@ class QuotesController
         $amount = $Quote->getAmountOfQuotes();
         echo $amount;
     }
+
+    public function ajaxlist()
+    {
+        $Quote = new Quote();
+        echo $Quote->ajaxlist();
+    }
 }
