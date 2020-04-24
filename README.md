@@ -12,7 +12,7 @@ Simple CRUD project (Create, Read, Update, Delete) made with [PHP](https://php.n
 
 ## Installation
 
-- Unzip or clone this repository on your web server's webroot: `cd /var/www/html && git clone https://github.com/sistematico/php-mvc-lite`
+- Unzip or clone this repository on your web server's webroot: `cd /var/www/html && git clone https://github.com/sistematico/php-mvc-ajax`
 - Run command `composer install` in the same directory where the file `composer.json` is located.
 - Go to https://site.com/quotes/install
 - Pray.

@@ -10,7 +10,7 @@ class QuotesController
     {
         $Quote = new Quote();
         if ($Quote->tableExists() === true) {
-            $quotes = $Quote->getAllQuotes();
+            $quotes = $Quote->list();
             $amount = $Quote->getAmountOfQuotes();
         } else {
             $result = $Quote->install();
@@ -24,7 +24,7 @@ class QuotesController
     {
         $Quote = new Quote();
         $result = $Quote->populate();
-        $quotes = $Quote->getAllQuotes();
+        $quotes = $Quote->list();
         $amount = $Quote->getAmountOfQuotes();
         require APP . 'view/_templates/header.php';
         require APP . 'view/quotes/index.php';
@@ -42,10 +42,12 @@ class QuotesController
 
     public function add()
     {
-        if (isset($_POST["submit_add_quote"]) && strlen($_POST["artist"]) > 1) {
-            $Quote = new Quote();
-            $Quote->add($_POST["artist"], $_POST["track"],  $_POST["link"]);
+        $Quote = new Quote();
+        if (isset($_POST["submit_add_quote"]) && strlen($_POST["quote"]) > 1) {
+            $Quote->add($_POST["quote"], $_POST["author"], $_POST["tags"]);
         }        
+        $quotes = $Quote->list();
+        $amount = $Quote->getAmountOfQuotes();
         require APP . 'view/_templates/header.php';
         require APP . 'view/quotes/index.php';
         require APP . 'view/_templates/footer.php';
@@ -57,7 +59,7 @@ class QuotesController
             $Quote = new Quote();
             $Quote->delete($id);
         }
-        header('location: ' . URL . 'quotes/index');
+        header('location: ' . URL . 'quotes');
     }
 
     public function edit($id)
@@ -83,7 +85,7 @@ class QuotesController
     {
         if (isset($_POST["submit_update_quote"])) {
             $Quote = new Quote();
-            $Quote->update($_POST["artist"], $_POST["track"],  $_POST["link"], $_POST['id']);
+            $Quote->update($_POST["quote"], $_POST["author"], $_POST["tags"], $_POST['id']);
         }
         header('location: ' . URL . 'quotes');
     }
@@ -92,7 +94,7 @@ class QuotesController
     {
         if (isset($_POST["term"]) && strlen($_POST["term"]) > 1) {
             $Quote = new Quote();
-            $result = $Quote->searchTracks($_POST["term"]);
+            $result = $Quote->searchQuotes($_POST["term"]);
         } 
         require APP . 'view/_templates/header.php';
         require APP . 'view/quotes/search.php';

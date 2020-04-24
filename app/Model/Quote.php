@@ -9,75 +9,71 @@ class Quote extends Model
 
     private $results = [];
 
-    public function getAllQuotes()
+    public function list()
     {
-        $sql = "SELECT id, artist, track, link FROM song";
+        $sql = "SELECT id, quote, author, tags, date FROM quote";
         $query = $this->db->prepare($sql);
         $query->execute();
-        return $query->fetchAll();
+        //return $query->fetchAll();
+        while ($row = $query->fetch()) {
+            $this->results[] = ['id' => $row->id,'quote' => $row->quote,'author' => $row->author,'tags' => $row->tags,'date' => $row->date];
+        }
+        return $this->results;
     }
 
-    public function add($artist, $track, $link)
+    public function add($quote, $author, $tags)
     {
-        $sql = "INSERT INTO song (artist, track, link) VALUES (:artist, :track, :link)";
+        $sql = "INSERT INTO quote (quote, author, tags) VALUES (:quote, :author, :tags)";
         $query = $this->db->prepare($sql);
-        $parameters = array(':artist' => $artist, ':track' => $track, ':link' => $link);
-        $query->execute($parameters);
+        $query->execute([':quote' => $quote, ':author' => $author, ':tags' => $tags]);
     }
 
     public function delete($id)
     {
-        $sql = "DELETE FROM song WHERE id = :id";
+        $sql = "DELETE FROM quote WHERE id = :id";
         $query = $this->db->prepare($sql);
-        $parameters = array(':id' => $id);
-        $query->execute($parameters);
+        $query->execute([':id' => $id]);
     }
 
     public function get($id)
     {
-        $sql = "SELECT id, artist, track, link FROM song WHERE id = :id LIMIT 1";
+        $sql = "SELECT id, quote, author, tags, date FROM quote WHERE id = :id LIMIT 1";
         $query = $this->db->prepare($sql);
-        $parameters = array(':id' => $id);
-        $query->execute($parameters);
+        $query->execute([':id' => $id]);
         return $query->fetch();
     }
 
-    public function update($artist, $track, $link, $id)
+    public function update($quote, $author, $tags, $id)
     {
-        $sql = "UPDATE song SET artist = :artist, track = :track, link = :link WHERE id = :id";
+        $sql = "UPDATE quote SET quote = :quote, author = :author, tags = :tags WHERE id = :id";
         $query = $this->db->prepare($sql);
-        $parameters = array(':artist' => $artist, ':track' => $track, ':link' => $link, ':id' => $id);
-        $query->execute($parameters);
+        $query->execute([':quote' => $quote, ':author' => $author, ':tags' => $tags, ':id' => $id]);
     }
 
     public function getAmountOfQuotes()
     {
-        $sql = "SELECT COUNT(id) AS amount FROM song";
+        $sql = "SELECT COUNT(id) AS amount FROM quote";
         $query = $this->db->prepare($sql);
         $query->execute();
         return $query->fetch()->amount;
     }
 
-    public function searchTracks($term)
+    public function searchQuotes($term)
     {
         $term = "%" . $term . "%";
-        $sql = "SELECT id, artist, track, link FROM song WHERE artist LIKE :term OR track LIKE :term";
+        $sql = "SELECT id, quote, author, tags, date FROM quote WHERE quote LIKE :term OR author LIKE :term OR tags LIKE :term";
         $query = $this->db->prepare($sql);
         $query->execute([':term' => $term]);
+        
         while ($row = $query->fetch()) {
-            $this->results[] = [
-                'id' => $row->id,
-                'artist' => $row->artist,
-                'track' => $row->track,
-                'link' => $row->link
-            ];
+            $this->results[] = ['id' => $row->id,'quote' => $row->quote,'author' => $row->author,'tags' => $row->tags,'date' => $row->date];
         }
         return $this->results;
     }
 
     public function install()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS song (id INTEGER PRIMARY KEY, artist TEXT, track TEXT, link TEXT)";
+        $sql = "CREATE TABLE IF NOT EXISTS quote (id INTEGER PRIMARY KEY, quote TEXT, author TEXT, tags TEXT, date TEXT DEFAULT CURRENT_TIMESTAMP)";
         try {
             $this->db->exec($sql);
             return "Table installed.";
@@ -92,7 +88,7 @@ class Quote extends Model
         $this->db->exec("DROP TABLE IF EXISTS $tabela");
 
         try {
-            $this->db->exec("CREATE TABLE IF NOT EXISTS $tabela (id INTEGER PRIMARY KEY, artist TEXT, track TEXT, link TEXT)");
+            $this->db->exec("CREATE TABLE IF NOT EXISTS $tabela (id INTEGER PRIMARY KEY, quote TEXT, author TEXT, tags TEXT, date TEXT DEFAULT CURRENT_TIMESTAMP)");
             return "Tabela $tabela recriada com sucesso.<br />";
         } catch (\PDOException $e) {
             return "Erro ao criar tabela $tabela: " . $e->getMessage() . "<br />";
@@ -116,13 +112,6 @@ class Quote extends Model
         }
 
         return "Error importing data";
-    }
-
-    public function getTableList()
-    {
-        $sql = "SELECT name FROM sqlite_master WHERE type='table'";
-        $query = $this->db->query($sql);
-        return $query->fetch();
     }
 
     public function tableExists($table = 'quote')
