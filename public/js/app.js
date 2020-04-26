@@ -51,11 +51,8 @@ $("form#addform").on("submit",function (e) {
     } else if (author == "") {
         alert("Please enter author");
         $("#author").focus();
-    } else if (tags == "") {
-        alert("Please enter tags");
-        $("#tags").focus();
     } else {
-        $("#buttonLabel").html("Saving...");
+        $("#buttonLabelAdd").html("Saving...");
         $("#spinnerLoader").show('fast');
         $.post(url + "quotes/add",{
             quote:quote,
@@ -64,7 +61,7 @@ $("form#addform").on("submit",function (e) {
             id:id,
         }, function (response) {
             if (response == "Quote added") {
-                $("#buttonLabel").html("Save");
+                $("#buttonLabelAdd").html("Save");
                 $("#spinnerLoader").hide('fast');
                 $("#addModal").modal('hide');
                 $("form#addform").each(function () {
@@ -91,11 +88,8 @@ $("form#editform").on("submit",function (e) {
     } else if (author == "") {
         alert("Please enter author");
         $("#author").focus();
-    } else if (tags == "") {
-        alert("Please enter tags");
-        $("#tags").focus();
     } else {
-        $("#buttonLabel").html("Saving...");
+        $("#buttonLabelEdit").html("Saving...");
         $("#spinnerLoader").show('fast');
         $.post(url + "quotes/update",{
             quote:quote,
@@ -104,7 +98,7 @@ $("form#editform").on("submit",function (e) {
             id:id,
         }, function (response) {
             if (response == "Quote edited") {
-                $("#buttonLabel").html("Save");
+                $("#buttonLabelEdit").html("Save");
                 $("#spinnerLoader").hide('fast');
                 $("#editModal").modal('hide');
                 $("form#editform").each(function () {

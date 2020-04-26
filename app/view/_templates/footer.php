@@ -45,7 +45,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" name="addBtn" id="addBtn" class="btn btn-primary">
                         <i class="fa fa-spinner fa-spin" id="spinnerLoader"></i>
-                        <span id="buttonLabel">Add</span>
+                        <span id="buttonLabelAdd">Add</span>
                     </button>
                 </div>
             </form>
@@ -91,7 +91,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" name="editBtn" id="editBtn" class="btn btn-success">
                         <i class="fa fa-spinner fa-spin" id="spinnerLoader"></i>
-                        <span id="buttonLabel">Update</span>
+                        <span id="buttonLabelEdit">Update</span>
                     </button>
                 </div>
             </form>
