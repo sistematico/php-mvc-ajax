@@ -30,7 +30,16 @@
                         <a class="nav-link" href="<?php echo URL; ?>pages/credits">Credits</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo URL; ?>quotes">Quotes</a>
+                        <a href="/" class="btn btn-info mr-2">List</a>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addModal">Add</button>
+                    </li>
+                    <li class="nav-item">
+                        <button href="javaScript:void(0)" onclick="populate();" type="button" class="btn btn-warning mr-2">Populate</button>
+                    </li>
+                    <li class="nav-item">
+                        <button href="javaScript:void(0)" onclick="prune();" type="button" class="btn btn-danger">Prune</button>
                     </li>
                 </ul>
                 <form id="searchform" class="form-inline my-2 my-lg-0">

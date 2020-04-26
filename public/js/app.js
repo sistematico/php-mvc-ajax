@@ -15,14 +15,16 @@ $("form#searchform").on("submit",function (e) {
             result += '<div id="results" class="card-deck">';
             $.each(data, function(key, item) {
                 num++;
-                result += '<div class="card mb-3">';
+                result += '<div class="card text-white bg-dark mb-3">';
                 result += '<div class="card-body">';
                 result += '<blockquote class="blockquote">';
                 result += '<p>' + item.quote + '</p>';
                 result += '<footer class="blockquote-footer">' + item.author + '</footer>';
                 result += '</blockquote>';
-                result += '<a href="javaScript:void(0)" onclick="editData(' + item.id + ');" class="card-link">Edit</a>';
-                result += '<a href="javaScript:void(0)" onclick="deleteData(' + item.id + ');" class="card-link">Delete</a>';
+                result += '</div>';
+                result += '<div class="card-footer text-muted">';
+                result += '<a href="javaScript:void(0)" onclick="editData(' + item.id + ');" class="card-link btn btn-sm btn-warning">Edit</a>';
+                result += '<a href="javaScript:void(0)" onclick="deleteData(' + item.id + ');" class="card-link btn btn-sm btn-danger">Delete</a>';
                 result += '</div>';
                 result += '</div>';
                 if (num > 2) {
@@ -124,14 +126,16 @@ function list() {
         result += '<div id="results" class="card-deck">';
         $.each(data, function(key, item) {
             num++;
-            result += '<div class="card mb-3">';
+            result += '<div class="card text-white bg-dark mb-3">';
             result += '<div class="card-body">';
             result += '<blockquote class="blockquote">';
             result += '<p>' + item.quote + '</p>';
             result += '<footer class="blockquote-footer">' + item.author + '</footer>';
             result += '</blockquote>';
-            result += '<a href="javaScript:void(0)" onclick="editData(' + item.id + ');" class="card-link">Edit</a>';
-            result += '<a href="javaScript:void(0)" onclick="deleteData(' + item.id + ');" class="card-link">Delete</a>';
+            result += '</div>';
+            result += '<div class="card-footer text-muted">';
+            result += '<a href="javaScript:void(0)" onclick="editData(' + item.id + ');" class="card-link btn btn-sm btn-warning">Edit</a>';
+            result += '<a href="javaScript:void(0)" onclick="deleteData(' + item.id + ');" class="card-link btn btn-sm btn-danger">Delete</a>';
             result += '</div>';
             result += '</div>';
             if (num > 2) {
