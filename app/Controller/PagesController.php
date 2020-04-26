@@ -5,10 +5,17 @@ namespace App\Controller;
 class PagesController
 {
 
+    // public function crud()
+    // {
+    //     require APP . 'view/_templates/header.php';
+    //     require APP . 'view/pages/crud.php';
+    //     require APP . 'view/_templates/footer.php';
+    // }
+
     public function index()
     {
         require APP . 'view/_templates/header.php';
-        require APP . 'view/pages/index.php';
+        require APP . 'view/quotes/index.php';
         require APP . 'view/_templates/footer.php';
     }
 

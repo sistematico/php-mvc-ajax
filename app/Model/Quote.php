@@ -14,19 +14,6 @@ class Quote extends Model
         $sql = "SELECT id, quote, author, tags, date FROM quote";
         $query = $this->db->prepare($sql);
         $query->execute();
-        //return $query->fetchAll();
-        while ($row = $query->fetch()) {
-            $this->results[] = ['id' => $row->id,'quote' => $row->quote,'author' => $row->author,'tags' => $row->tags,'date' => $row->date];
-        }
-        return $this->results;
-    }
-
-    public function ajaxlist()
-    {
-        $sql = "SELECT id, quote, author, tags, date FROM quote";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        //return $query->fetchAll();
         while ($row = $query->fetch()) {
             $this->results[] = ['id' => $row->id,'quote' => $row->quote,'author' => $row->author,'tags' => $row->tags,'date' => $row->date];
         }
@@ -35,16 +22,27 @@ class Quote extends Model
 
     public function add($quote, $author, $tags)
     {
-        $sql = "INSERT INTO quote (quote, author, tags) VALUES (:quote, :author, :tags)";
-        $query = $this->db->prepare($sql);
-        $query->execute([':quote' => $quote, ':author' => $author, ':tags' => $tags]);
+        try {
+            $sql = "INSERT INTO quote (quote, author, tags) VALUES (:quote, :author, :tags)";
+            $query = $this->db->prepare($sql);
+            $query->execute([':quote' => $quote, ':author' => $author, ':tags' => $tags]);
+            return "Quote added";
+        } catch(\PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
     }
 
     public function delete($id)
     {
-        $sql = "DELETE FROM quote WHERE id = :id";
-        $query = $this->db->prepare($sql);
-        $query->execute([':id' => $id]);
+        try {
+            $sql = "DELETE FROM quote WHERE id = :id";
+            $query = $this->db->prepare($sql);
+            $query->execute([':id' => $id]);
+            //return "Quote id: $id deleted";
+            return "Quote deleted";
+        } catch(\PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
     }
 
     public function get($id)
@@ -52,17 +50,26 @@ class Quote extends Model
         $sql = "SELECT id, quote, author, tags, date FROM quote WHERE id = :id LIMIT 1";
         $query = $this->db->prepare($sql);
         $query->execute([':id' => $id]);
-        return $query->fetch();
+        return json_encode($query->fetch());
     }
 
     public function update($quote, $author, $tags, $id)
     {
-        $sql = "UPDATE quote SET quote = :quote, author = :author, tags = :tags WHERE id = :id";
-        $query = $this->db->prepare($sql);
-        $query->execute([':quote' => $quote, ':author' => $author, ':tags' => $tags, ':id' => $id]);
+        //$sql = "UPDATE quote SET quote = :quote, author = :author, tags = :tags WHERE id = :id";
+        //$query = $this->db->prepare($sql);
+        //$query->execute([':quote' => $quote, ':author' => $author, ':tags' => $tags, ':id' => $id]);
+
+        try {
+            $sql = "UPDATE quote SET quote = :quote, author = :author, tags = :tags WHERE id = :id";
+            $query = $this->db->prepare($sql);
+            $query->execute([':quote' => $quote, ':author' => $author, ':tags' => $tags, ':id' => $id]);
+            return "Quote edited";
+        } catch(\PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
     }
 
-    public function getAmountOfQuotes()
+    public function amount()
     {
         $sql = "SELECT COUNT(id) AS amount FROM quote";
         $query = $this->db->prepare($sql);
@@ -70,7 +77,7 @@ class Quote extends Model
         return $query->fetch()->amount;
     }
 
-    public function searchQuotes($term)
+    public function search($term)
     {
         $term = "%" . $term . "%";
         $sql = "SELECT id, quote, author, tags, date FROM quote WHERE quote LIKE :term OR author LIKE :term OR tags LIKE :term";
@@ -80,7 +87,7 @@ class Quote extends Model
         while ($row = $query->fetch()) {
             $this->results[] = ['id' => $row->id,'quote' => $row->quote,'author' => $row->author,'tags' => $row->tags,'date' => $row->date];
         }
-        return $this->results;
+        return json_encode($this->results);
     }
 
     public function install()
@@ -98,7 +105,6 @@ class Quote extends Model
     public function prune($tabela = 'quote')
     {
         $this->db->exec("DROP TABLE IF EXISTS $tabela");
-
         try {
             $this->db->exec("CREATE TABLE IF NOT EXISTS $tabela (id INTEGER PRIMARY KEY, quote TEXT, author TEXT, tags TEXT, date TEXT DEFAULT CURRENT_TIMESTAMP)");
             return "Tabela $tabela recriada com sucesso.<br />";
@@ -119,10 +125,8 @@ class Quote extends Model
             $this->db->exec($sql);
             return "Data imported";
         } catch(\PDOException $e) {
-            //unset($e);
             return "Error: " . $e->getMessage();
         }
-
         return "Error importing data";
     }
 

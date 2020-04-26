@@ -7,7 +7,7 @@
         </ol>
     </nav>
 
-    <h1 class="mt-5">Credits</h1>
+    <h1>Credits</h1>
     <p class="lead">
         This project was only possible through the help of the following other projects:
         <ul>

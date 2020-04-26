@@ -8,6 +8,6 @@
         </ol>
     </nav>
 
-    <h1 class="mt-5">About</h1>
+    <h1>About</h1>
     <p class="lead">Work In Progress</p>
 </main><!-- /.container -->

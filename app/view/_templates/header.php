@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="<?php echo URL; ?>css/main.css">
     <link rel="shortcut icon" href="<?php echo URL; ?>img/favicon.ico">
+    <style>#spinnerLoader{
+    display: none;
+}</style>
 </head>
 <body>
     <header>
@@ -30,8 +33,8 @@
                         <a class="nav-link" href="<?php echo URL; ?>quotes">Quotes</a>
                     </li>
                 </ul>
-                <form action="<?php echo URL; ?>quotes/search" method="post" class="form-inline my-2 my-lg-0">
-                    <input name="term" class="form-control mr-sm-2" type="text" placeholder="Search a quote" aria-label="Search">
+                <form id="searchform" class="form-inline my-2 my-lg-0">
+                    <input id="term" name="term" class="form-control mr-sm-2" type="text" placeholder="Search a quote" aria-label="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
