@@ -55,10 +55,6 @@ class Quote extends Model
 
     public function update($quote, $author, $tags, $id)
     {
-        //$sql = "UPDATE quote SET quote = :quote, author = :author, tags = :tags WHERE id = :id";
-        //$query = $this->db->prepare($sql);
-        //$query->execute([':quote' => $quote, ':author' => $author, ':tags' => $tags, ':id' => $id]);
-
         try {
             $sql = "UPDATE quote SET quote = :quote, author = :author, tags = :tags WHERE id = :id";
             $query = $this->db->prepare($sql);
@@ -107,7 +103,7 @@ class Quote extends Model
         $this->db->exec("DROP TABLE IF EXISTS $tabela");
         try {
             $this->db->exec("CREATE TABLE IF NOT EXISTS $tabela (id INTEGER PRIMARY KEY, quote TEXT, author TEXT, tags TEXT, date TEXT DEFAULT CURRENT_TIMESTAMP)");
-            return "Tabela $tabela recriada com sucesso.<br />";
+            return "Tabela recriada com sucesso.";
         } catch (\PDOException $e) {
             return "Erro ao criar tabela $tabela: " . $e->getMessage() . "<br />";
         }

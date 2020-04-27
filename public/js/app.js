@@ -69,9 +69,8 @@ $("form#addform").on("submit",function (e) {
                 });
                 list();
             }
-            $("#result").html(response).fadeIn(2000, function() { 
-                $(this).delay(5000).fadeOut(2000);
-            });
+            $('.toast-body').html(response);
+            $('.toast').toast('show');
         });
     }
 });
@@ -106,9 +105,8 @@ $("form#editform").on("submit",function (e) {
                 });
                 list();
             }
-            $("#result").html(response).fadeIn(2000, function() { 
-                $(this).delay(5000).fadeOut(2000);
-            });
+            $('.toast-body').html(response);
+            $('.toast').toast('show');
         });
     }
 });
@@ -170,18 +168,16 @@ function deleteData(id) {
 
 function populate() {
     $.get(url + "quotes/populate", function (response) {
-        $("#result").html(response).fadeIn(2000, function() { 
-            $(this).delay(5000).fadeOut(2000);
-        });
+        $('.toast-body').html(response);
+        $('.toast').toast('show');
         list();
     });
 }
 
 function prune() {
     $.get(url + "quotes/prune", function (response) {
-        $("#result").html(response).fadeIn(2000, function() { 
-            $(this).delay(5000).fadeOut(2000);
-        });
+        $('.toast-body').html(response);
+        $('.toast').toast('show');
         list();
     });
 }

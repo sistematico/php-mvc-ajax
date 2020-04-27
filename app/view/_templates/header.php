@@ -30,16 +30,16 @@
                         <a class="nav-link" href="<?php echo URL; ?>pages/credits">Credits</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/" class="btn btn-info mr-2">List</a>
+                        <a href="/" class="btn btn-info mr-2 my-2 my-sm-0">List</a>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addModal">Add</button>
+                        <button type="button" class="btn btn-primary mr-2 my-2 my-sm-0" data-toggle="modal" data-target="#addModal">Add</button>
                     </li>
                     <li class="nav-item">
-                        <button href="javaScript:void(0)" onclick="populate();" type="button" class="btn btn-warning mr-2">Populate</button>
+                        <button href="javaScript:void(0)" onclick="populate();" type="button" class="btn btn-warning mr-2 my-2 my-sm-0">Populate</button>
                     </li>
                     <li class="nav-item">
-                        <button href="javaScript:void(0)" onclick="prune();" type="button" class="btn btn-danger">Prune</button>
+                        <button href="javaScript:void(0)" onclick="prune();" type="button" class="btn btn-danger my-2 my-sm-0">Prune</button>
                     </li>
                 </ul>
                 <form id="searchform" class="form-inline my-2 my-lg-0">
@@ -49,3 +49,18 @@
             </div>
         </nav>
     </header>
+
+<!-- Toast -->
+<!-- <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;"> -->
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" style="position: fixed; bottom: 65px; left: 20px;">
+    <div class="toast-header">
+        <!-- <img src="..." class="rounded mr-2" alt="..."> -->
+        <strong class="mr-auto">PHP MVC</strong>
+        <small>now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body"></div>
+</div>
+<!-- </div> -->
